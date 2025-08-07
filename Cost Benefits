@@ -1,0 +1,5 @@
+| Cost Center        | Before | After                               |
+| ------------------ | ------ | ----------------------------------- |
+| Cosmos RU/s        | High   | Reduced (90%+ of old data archived) |
+| Blob Storage       | N/A    | Low (cheap per GB)                  |
+| Function Execution | N/A    | Low (infrequent archival runs)      |
