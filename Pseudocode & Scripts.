@@ -1,0 +1,28 @@
+A. Archival Function (Durable Function)
+
+def archive_old_billing_records():
+    # Step 1: Query Cosmos for records older than 3 months
+    old_records = query_cosmos("SELECT * FROM Billing WHERE timestamp < @cutoff_date")
+
+    for record in batch(old_records, 100):
+        # Step 2: Write to Blob Storage
+        blob_path = f'billing/{year}/{month}/batch-{uuid4()}.json.gz'
+        compressed = gzip_compress(json.dumps(record))
+        upload_to_blob(blob_path, compressed)
+
+        # Step 3: Delete from Cosmos
+        delete_from_cosmos(record['id'], record['partitionKey'])
+
+---
+
+
+B. Read API Shim
+
+def get_billing_record(record_id):
+    try:
+        return cosmos_client.read(record_id)
+    except NotFoundError:
+        # Construct blob path based on ID/timestamp hash
+        blob_path = infer_blob_path(record_id)
+        blob_data = read_blob(blob_path)
+        return extract_record(blob_data, record_id)
