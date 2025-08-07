@@ -1,0 +1,24 @@
+        ┌────────────────────┐
+        │   Client/API       │
+        └────────┬───────────┘
+                 │
+                 ▼
+       ┌──────────────────────┐
+       │ Existing API Layer   │◄───── No changes
+       └────────┬─────────────┘
+                │
+        ┌───────▼────────┐
+        │ Read/Write Shim│◄──── Lookup logic (Cosmos -> Blob)
+        └───────┬────────┘
+                │
+        ┌───────▼────────┐
+        │ Cosmos DB (Hot)│◄── Stores latest 3 months
+        └───────┬────────┘
+                │
+        ┌───────▼──────────────┐
+        │ Archival Function    │◄── Timer Triggered/Durable
+        └────────┬─────────────┘
+                 ▼
+        ┌──────────────────────┐
+        │ Blob Storage (Cold)  │◄── Compressed archives
+        └──────────────────────┘
