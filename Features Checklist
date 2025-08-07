@@ -1,0 +1,8 @@
+| Feature                                    | Covered |
+| ------------------------------------------ | ------- |
+| No API contract changes                    | ✅       |
+| No downtime during migration               | ✅       |
+| No data loss                               | ✅       |
+| Easy to implement and monitor              | ✅       |
+| Works with 300KB+ records                  | ✅       |
+| Supports on-demand reads from cold storage | ✅       |
