@@ -1,0 +1,7 @@
+| Failure                  | Mitigation                                             |
+| ------------------------ | ------------------------------------------------------ |
+| Archival fails midway    | Use Durable Functions checkpoints to resume            |
+| Blob read latency        | Cache popular records or use Azure CDN                 |
+| Cosmos DB query timeouts | Use continuation tokens for pagination                 |
+| Blob record not found    | Return 404, log anomaly                                |
+| High load on read shim   | Auto-scale API layer or use Azure API Management cache |
