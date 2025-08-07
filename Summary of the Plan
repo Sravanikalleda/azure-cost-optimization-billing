@@ -1,0 +1,7 @@
+To reduce Cosmos DB costs while maintaining data availability and latency guarantees, we’ll tier the storage:
+
+Hot Tier (Cosmos DB): Stores recent (last 3 months) billing records with high performance and availability.
+
+Cold Tier (Azure Blob Storage): Stores older records in a cheaper storage format (e.g., compressed JSON or Parquet), still accessible via existing API with minimal latency.
+
+We'll implement a serverless archival system (using Azure Functions + Durable Functions), and extend the read path using a lookup shim that fetches from Blob Storage if the record is not found in Cosmos DB.
